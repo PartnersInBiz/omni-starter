@@ -26,8 +26,7 @@ export default defineNuxtConfig({
       ],
     },
   },
-  extends: ["github:PartnersInBiz/omni-components", { install: true }],
-
+  extends: [["github:PartnersInBiz/omni-components", { install: true }]],
   /**
    * Load local font with @fontsource packages
    * @see https://fontsource.org/
