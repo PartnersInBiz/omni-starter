@@ -48,6 +48,7 @@
     }
   },
   "dependencies": {
+    "@vueuse/nuxt": "^10.9.0",
     "cross-env": "^7.0.3"
   }
 }
