@@ -10,6 +10,7 @@
     "clean": "rimraf .nuxt .output node_modules"
   },
   "devDependencies": {
+    "@cssninja/nuxt-toaster": "^0.3.12",
     "@stylistic/eslint-plugin": "^1.7.0",
     "@tauri-apps/cli": "^1.5.11",
     "@typescript-eslint/eslint-plugin": "7.2.0",
