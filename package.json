@@ -11,7 +11,12 @@
   },
   "devDependencies": {
     "@cssninja/nuxt-toaster": "^0.3.12",
+    "@fontsource-variable/fira-code": "^5.0.17",
+    "@fontsource-variable/inter": "^5.0.17",
+    "@fontsource-variable/karla": "^5.0.20",
+    "@fontsource-variable/roboto-flex": "^5.0.14",
     "@nuxtjs/color-mode": "^3.3.3",
+    "@shuriken-ui/nuxt": "^3.0.4",
     "@stylistic/eslint-plugin": "^1.7.0",
     "@tauri-apps/cli": "^1.5.11",
     "@typescript-eslint/eslint-plugin": "7.2.0",
@@ -50,6 +55,7 @@
     }
   },
   "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.11.4",
     "cross-env": "^7.0.3"
   }
 }
