@@ -14,6 +14,7 @@
     "@stylistic/eslint-plugin": "^1.7.0",
     "@tauri-apps/cli": "^1.5.11",
     "@typescript-eslint/eslint-plugin": "7.2.0",
+    "@vueuse/nuxt": "^10.9.0",
     "eslint": "8.57.0",
     "eslint-plugin-sonarjs": "^0.24.0",
     "eslint-plugin-tailwindcss": "3.15.1",
@@ -48,7 +49,6 @@
     }
   },
   "dependencies": {
-    "@vueuse/nuxt": "^10.9.0",
     "cross-env": "^7.0.3"
   }
 }
