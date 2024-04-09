@@ -1,4 +1,7 @@
 packages:
   - .demo
-  - .app
+  - .desktop
+  - .mobile
+  - .rasberry
+  - .desktop
   - layers/*

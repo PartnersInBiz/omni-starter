@@ -1,0 +1,51 @@
+name: Build for Linux ARM (Raspberry Pi)
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+env:
+  APP_NAME: "KIOS APP ARM"
+
+jobs:
+  build-arm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup ARM build environment
+        uses: pguyot/arm-runner-action@v2.5.2
+        with:
+          base_image: https://dietpi.com/downloads/images/DietPi_RPi-ARMv8-Bullseye.img.xz
+          cpu: cortex-a53
+          bind_mount_repository: true
+          image_additional_mb: 10240
+          optimize_image: false
+          commands: |
+            export HOME=/root
+            export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+            apt update -y --allow-releaseinfo-change
+            apt upgrade -y
+            apt autoremove -y
+            # install Tauri dependencies
+            apt-get install -y libwebkit2gtk-4.0-dev build-essential wget libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
+            xargs apt install -y < environment/apt_packages.txt
+            # install rust and cargo
+            curl https://sh.rustup.rs -sSf | sh -s -- -y
+            . "$HOME/.cargo/env"
+            # install nodejs
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash
+            apt install -y nodejs
+            # enable yearn
+            corepack enable
+            cargo install tauri-cli
+            yarn
+            # --bundles deb
+            yarn tauri build
+      - name: Upload deb bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ARM Debian File
+          path: src-tauri/target/release/bundle/deb/*arm64.deb

@@ -1,5 +1,5 @@
 {
-  "name": "tairo-quickstarter",
+  "name": "starter",
   "private": true,
   "type": "module",
   "devDependencies": {
