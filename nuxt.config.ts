@@ -32,6 +32,9 @@ export default defineNuxtConfig({
    * @see https://fontsource.org/
    */
   css: [
+    "@/assets/css/main.css",
+    "~/assets/css/colors.css",
+    "@fontsource-variable/fira-code/index.css",
     "@fontsource-variable/inter/index.css",
     "@fontsource-variable/karla/index.css",
   ],
@@ -56,7 +59,7 @@ export default defineNuxtConfig({
     ...(process.env.ENABLE_DOCUMENTATION ? documentationRules : {}),
     ...corsRules,
   },
-
+  modules: ["@nuxtjs/tailwindcss"],
   // nuxt build configuration
   nitro: {
     esbuild: {
@@ -65,6 +68,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   build: {
     transpile: [],
   },
@@ -87,6 +91,12 @@ export default defineNuxtConfig({
     //     // "fast-deep-equal",
     //   ],
     // },
+  },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
   },
   devtools: { enabled: true },
 })
