@@ -10,6 +10,6 @@
 
 export default defineAppConfig({
   tairo: {
-    title: 'Tairo Quick Starter',
+    title: "Mobile",
   },
-})
+});

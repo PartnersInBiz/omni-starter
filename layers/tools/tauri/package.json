@@ -1,0 +1,19 @@
+{
+  "name": "tairo-quickstarter",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.5.11",
+    "nuxt": "^3.10.3"
+  },
+  "scripts": {
+    "prepare": "nuxi prepare",
+    "dev": "nuxi dev --open",
+    "build": "nuxi build",
+    "generate": "nuxi generate",
+    "clean": "rimraf .nuxt .output node_modules"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.5.3"
+  }
+}

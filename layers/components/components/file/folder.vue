@@ -1,0 +1,215 @@
+<script setup lang="ts">
+let fileManager = defineProps({
+  linkedId: {
+    type: String,
+    default: '',
+  },
+})
+const { client } = useAccount()
+const { addToCollection: addToCollectionSpaceRegister } = useFirebaseFirestore()
+
+const { $swal } = useNuxtApp()
+const { UploadsFolders, selectedFolder } = useUploads()
+
+const open = ref(false)
+const spaceInstance: any = getCurrentInstance()
+const formSpaceRegister: any = ref({
+  title: '',
+  about: '',
+  type: '',
+  tags: [],
+  members: [client.value.id],
+  invitees: [],
+  other: '',
+  approval_needed: false,
+  approvals: [],
+  status: 'Pending',
+  emails: [],
+  linked: [fileManager.linkedId],
+})
+async function submitNetcashRegistration() {
+  try {
+    console.log(selectedFolder.value)
+    if (selectedFolder.value.title)
+      formSpaceRegister.value.folders = selectedFolder.value.id
+    const res = await addToCollectionSpaceRegister(
+      'folders',
+      formSpaceRegister.value,
+    )
+    const payload = { ...formSpaceRegister.value, ...res }
+    UploadsFolders.value.push(payload)
+
+    $swal.fire({
+      title: 'Success!',
+      text: `Yeah, enjoy`,
+      icon: 'success',
+      confirmButtonText: 'Cool',
+    })
+  } catch (e) {
+    console.error(e)
+  }
+
+  formSpaceRegister.value = {
+    title: '',
+    about: '',
+    type: 'Folder',
+    tags: [],
+    members: [client.value.id],
+    invitees: [],
+    other: '',
+    approval_needed: false,
+    approvals: [],
+    status: 'Pending',
+    market: false,
+    parent: [],
+    size: 0,
+    linked: [fileManager.linkedId],
+  }
+  spaceInstance.emit('close')
+}
+
+const emailTypes = ref([
+  'Transactional',
+  'Newsletter',
+  'Announcement',
+  'Event invitation',
+  'Sales',
+  'Follow-up',
+  'Onboarding',
+  'Survey',
+  'Marketing',
+  'Customer service',
+  'Other',
+])
+
+const schema: any = ref({
+  options: {
+    input_class: { value: 'o_input' },
+    search_button_class: { value: 'o_btn_icon_square' },
+    icon: { value: 'mdi:magnify' },
+  },
+})
+
+const userinvite = (us: { id: any }) => {
+  console.log(us)
+  //see if in array, if in array then delete, if not in array then add
+  if (formSpaceRegister.value.invitees.includes(us.id)) {
+    formSpaceRegister.value.invitees = formSpaceRegister.value.invitees.filter(
+      (item: any) => item !== us.id,
+    )
+  } else {
+    formSpaceRegister.value.invitees.push(us.id)
+  }
+  // formSpaceRegister.value.invitees.push(us.id)
+}
+
+const userapproval = (us: { id: any }) => {
+  console.log(us)
+  //see if in array, if in array then delete, if not in array then add
+  if (formSpaceRegister.value.approvals.includes(us.id)) {
+    formSpaceRegister.value.approvals =
+      formSpaceRegister.value.approvals.filter((item: any) => item !== us.id)
+  } else {
+    formSpaceRegister.value.approvals.push(us.id)
+  }
+  // formSpaceRegister.value.invitees.push(us.id)
+}
+
+const input = (data) => {
+  if (data && data.path === undefined && data.bubbles === undefined)
+    formSpaceRegister.value.about = data
+}
+
+const uploadAdd = (data: any) => {
+  console.log(data)
+  formSpaceRegister.value.images = data
+}
+</script>
+<template>
+  <div class="theme_300 font-sans text-base font-normal">
+    <div class="theme_300 overflow-x-hidden">
+      <div
+        x-bind:aria-expanded="open"
+        class="flex min-h-screen flex-col transition-all duration-500 ease-in-out ltr:ml-64 rtl:mr-64"
+      >
+        <div>
+          <div>
+            <!-- row -->
+            <div class="flex flex-row flex-wrap">
+              <!-- <div class="flex-shrink w-full max-w-full px-4">
+                <p class="mt-3 mb-5 text-xl font-bold">Create new folder</p>
+              </div> -->
+              <div class="w-full max-w-full shrink">
+                <div class="theme_100 h-full rounded-lg p-6 shadow-lg">
+                  <div class="-mx-4 flex flex-row flex-wrap">
+                    <div class="mb-4 w-full max-w-full shrink px-4">
+                      <label for="inputtitle" class="o_label">Title</label>
+                      <input
+                        v-model="formSpaceRegister.title"
+                        type="text"
+                        class="o_input"
+                        id="inputtitle"
+                      />
+                    </div>
+                    <div class="mb-4 w-full max-w-full shrink px-4">
+                      <label for="inputbudget" class="o_label">About</label>
+                      <formgenerator-inputs-quill
+                        @input="input"
+                        :placeholder="formSpaceRegister.about"
+                      />
+                    </div>
+
+                    <div class="w-full max-w-full shrink px-4">
+                      <client-only>
+                        <TagsSelect
+                          type="emailcontent"
+                          :show-add="true"
+                          @selected-tag="formSpaceRegister.tags = $event"
+                        />
+                      </client-only>
+                    </div>
+
+                    <div class="mb-4 w-full max-w-full shrink px-4">
+                      <label for="inputtitle" class="o_label">User</label>
+                      <user-search :schema="schema" @input="userinvite" />
+                      <user-groups :users="formSpaceRegister.invitees" />
+                    </div>
+
+                    <div class="w-full p-4">
+                      <FileButton @upload-add="uploadAdd" />
+                      <FileView
+                        :images="formSpaceRegister.images"
+                        @clicked="formSpaceRegister.images.splice($event, 1)"
+                      />
+                    </div>
+
+                    <div class="w-full max-w-full shrink px-4">
+                      <button
+                        @click="submitNetcashRegistration"
+                        class="o_btn_primarys"
+                      >
+                        Add new folder
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="12"
+                          height="12"
+                          fill="currentColor"
+                          class="bi bi-plus-lg inline-block ltr:ml-1 rtl:mr-1"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"
+                          ></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

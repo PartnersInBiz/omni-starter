@@ -15,9 +15,9 @@
     "layers/*"
   ],
   "scripts": {
-    "dev": "nuxi dev .app --open",
-    "build": "nuxi build .app",
-    "generate": "nuxi generate .app",
+    "web:dev": "nuxi dev .web --open",
+    "web:build": "nuxi build .web",
+    "web:generate": "nuxi generate .web",
     "demo:dev": "nuxi dev .demo --open",
     "demo:build": "nuxi build .demo",
     "clean:all": "pnpm -r clean && rimraf .nuxt .output node_modules",
