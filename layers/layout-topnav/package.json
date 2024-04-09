@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@cssninja/tairo-layout-topnav",
+  "name": "layout-topnav",
   "version": "0.0.0",
   "type": "module",
   "main": "./nuxt.config.ts",
