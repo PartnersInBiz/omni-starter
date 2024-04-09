@@ -4,7 +4,7 @@
 
 <template>
   <div class="game-logo">
-    <picture>
+    <!-- <picture>
       <source srcset="/img/games/snake_logo_sm.webp" type="image/webp" />
       <source srcset="/img/games/snake_logo_sm.png" type="image/png" />
       <img
@@ -12,7 +12,7 @@
         src="/img/games/snake_logo_sm.png"
         alt="Schlitterio Logo"
       />
-    </picture>
+    </picture> -->
     <div class="game-logo-text">
       <h1 class="game-logo-title">Loyalty</h1>
       <h2 class="game-logo-subtitle">Nom nom tasty apple!</h2>
