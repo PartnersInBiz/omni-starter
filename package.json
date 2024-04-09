@@ -1,44 +1,48 @@
 {
-  "name": "omni-starter",
   "private": true,
+  "name": "tairo",
+  "version": "1.4.0",
   "type": "module",
+  "main": "./nuxt.config.ts",
+  "packageManager": "pnpm@8.14.0",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  },
+  "workspaces": [
+    ".demo",
+    ".app",
+    "layers/*"
+  ],
   "scripts": {
-    "prepare": "nuxi prepare",
-    "dev": "nuxi dev --open",
-    "dev:cap:android": "cross-env NODE_OPTIONS=--max_old_space_size=8192 nuxi generate &&   npx cap sync android  && npx cap open android",
-    "dev:cap:ios": "cross-env NODE_OPTIONS=--max_old_space_size=8192 nuxi generate && npx cap sync ios && npx cap open ios",
+    "dev": "nuxi dev .app --open",
+    "build": "nuxi build .app",
+    "generate": "nuxi generate .app",
+    "demo:dev": "nuxi dev .demo --open",
+    "demo:build": "nuxi build .demo",
     "clean:all": "pnpm -r clean && rimraf .nuxt .output node_modules",
-    "build": "nuxi build",
-    "generate": "nuxi generate",
-    "clean": "rimraf .nuxt .output node_modules"
+    "test": "run-p test:*",
+    "test:tsc-demo": "nuxi typecheck .demo",
+    "test:lint": "eslint .",
+    "lint": "run-s lint:eslint:fix lint:eslint:fix-demo ",
+    "lint:eslint:fix": "eslint --fix .",
+    "lint:eslint:fix-demo": "eslint -c layers/documentation/examples/.eslintrc.cjs --fix layers/documentation/examples"
   },
   "devDependencies": {
-    "@cssninja/nuxt-toaster": "^0.3.12",
-    "@fontsource-variable/fira-code": "^5.0.17",
-    "@fontsource-variable/inter": "^5.0.17",
-    "@fontsource-variable/karla": "^5.0.20",
-    "@fontsource-variable/roboto-flex": "^5.0.14",
-    "@nuxtjs/color-mode": "^3.3.3",
-    "@shuriken-ui/nuxt": "^3.0.4",
-    "@stylistic/eslint-plugin": "^1.7.0",
-    "@tauri-apps/cli": "^1.5.11",
-    "@typescript-eslint/eslint-plugin": "7.2.0",
-    "@vueuse/nuxt": "^10.9.0",
-    "autoprefixer": "^10.4.19",
-    "eslint": "8.57.0",
-    "eslint-plugin-sonarjs": "^0.24.0",
-    "eslint-plugin-tailwindcss": "3.15.1",
-    "eslint-plugin-vue": "9.23.0",
+    "@stylistic/eslint-plugin": "^1.5.4",
+    "@typescript-eslint/eslint-plugin": "6.19.1",
+    "eslint": "8.56.0",
+    "eslint-plugin-sonarjs": "^0.23.0",
+    "eslint-plugin-tailwindcss": "3.14.0",
+    "eslint-plugin-vue": "9.20.1",
     "eslint-plugin-vuejs-accessibility": "2.2.1",
-    "lint-staged": "15.2.2",
+    "lint-staged": "15.2.0",
     "npm-run-all": "4.1.5",
-    "nuxt": "^3.11.1",
-    "postcss": "^8.4.38",
     "rimraf": "5.0.5",
     "std-env": "3.7.0",
-    "tailwindcss": "3.4.3",
-    "typescript": "5.4.2",
-    "vue-tsc": "2.0.6"
+    "tailwindcss": "3.4.1",
+    "typescript": "5.3.3",
+    "vue-tsc": "1.8.27"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -57,10 +61,9 @@
         "@unhead/vue",
         "webpack"
       ]
+    },
+    "patchedDependencies": {
+      "smooth-dnd@0.12.1": "patches/smooth-dnd@0.12.1.patch"
     }
-  },
-  "dependencies": {
-    "@nuxtjs/tailwindcss": "^6.11.4",
-    "cross-env": "^7.0.3"
   }
 }

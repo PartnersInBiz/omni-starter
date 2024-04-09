@@ -1,0 +1,17 @@
+{
+  "name": "tairo-quickstarter",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@fontsource-variable/inter": "^5.0.16",
+    "@fontsource-variable/karla": "^5.0.19",
+    "nuxt": "3.9.3"
+  },
+  "scripts": {
+    "prepare": "nuxi prepare",
+    "dev": "nuxi dev --open",
+    "build": "nuxi build",
+    "generate": "nuxi generate",
+    "clean": "rimraf .nuxt .output node_modules"
+  }
+}
