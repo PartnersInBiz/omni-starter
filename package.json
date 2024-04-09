@@ -18,6 +18,8 @@
     "web:dev": "nuxi dev .web --open",
     "web:build": "nuxi build .web",
     "web:generate": "nuxi generate .web",
+    "mobile:cap:android": "cross-env NODE_OPTIONS=--max_old_space_size=8192 nuxi generate ./mobile && cd ./mobile && npx cap sync android  && npx cap open android",
+    "mobile:cap:ios": "cross-env NODE_OPTIONS=--max_old_space_size=8192 nuxi generate ./mobile && cd ./mobile && npx cap sync ios && npx cap open ios",
     "demo:dev": "nuxi dev .demo --open",
     "demo:build": "nuxi build .demo",
     "clean:all": "pnpm -r clean && rimraf .nuxt .output node_modules",
