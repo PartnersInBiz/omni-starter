@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import WSClient from "../../utils/WSClient";
+import WSClient from "../utils/WSClient";
 
 onMounted(() => {
   console.log("mounted");

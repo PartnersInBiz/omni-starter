@@ -1,5 +1,5 @@
 {
-  "name": "tairo-quickstarter",
+  "name": "sockets",
   "private": true,
   "type": "module",
   "devDependencies": {
@@ -13,6 +13,7 @@
     "clean": "rimraf .nuxt .output node_modules"
   },
   "dependencies": {
+    "@vueuse/core": "^10.9.0",
     "websocket-ts": "^2.1.5"
   }
 }
