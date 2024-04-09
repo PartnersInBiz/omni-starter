@@ -5,6 +5,9 @@
   "scripts": {
     "prepare": "nuxi prepare",
     "dev": "nuxi dev --open",
+    "dev:cap:android": "cross-env NODE_OPTIONS=--max_old_space_size=8192 nuxi generate &&   npx cap sync android  && npx cap open android",
+    "dev:cap:ios": "cross-env NODE_OPTIONS=--max_old_space_size=8192 nuxi generate && npx cap sync ios && npx cap open ios",
+    "clean:all": "pnpm -r clean && rimraf .nuxt .output node_modules",
     "build": "nuxi build",
     "generate": "nuxi generate",
     "clean": "rimraf .nuxt .output node_modules"

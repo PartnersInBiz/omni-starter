@@ -26,7 +26,13 @@ export default defineNuxtConfig({
       ],
     },
   },
-  extends: [["github:PartnersInBiz/omni-components", { install: true }]],
+  extends: [
+    ["github:PartnersInBiz/omni-components", { install: true }],
+    ["github:PartnersInBiz/omni-layout-collapse", { install: true }],
+    ["github:PartnersInBiz/omni-layout-dynamic", { install: true }],
+    ["github:PartnersInBiz/omni-layout-sidebar", { install: true }],
+    ["github:PartnersInBiz/omni-layout-topnav", { install: true }],
+  ],
   /**
    * Load local font with @fontsource packages
    * @see https://fontsource.org/
