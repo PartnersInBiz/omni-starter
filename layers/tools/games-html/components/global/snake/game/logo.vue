@@ -1,4 +1,3 @@
-
 <script setup lang='ts'>
 </script>
 
@@ -19,7 +18,6 @@
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .game-logo {
